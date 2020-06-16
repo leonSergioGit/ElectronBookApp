@@ -5,3 +5,25 @@
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.navbar {
+	background-color: #5a5c5a;
+	margin-bottom: 20px;
+}
+
+.navContainer {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	height: 80px;
+	column-gap: 20px;
+}
+
+.navTitle {
+	line-height: 80px;
+}
+
+.link {
+	font-size: 2rem;
+	line-height: 80px;
+}

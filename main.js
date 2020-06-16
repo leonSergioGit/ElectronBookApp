@@ -75,11 +75,16 @@ app.on('window-all-closed', () => {
 
 
 //SAVE DATA IN FILE
-ipcMain.on('books:add', (e, books) => {
+ipcMain.on('books:add', (e, book) => {
 	const fileDir = app.getPath('home');
 	const file = path.join(fileDir, "bookApp.json")
-	fs.writeFileSync(file, JSON.stringify(books));
+	let fileData = fs.readFileSync(file, 'utf8')
+	fileData = JSON.parse(fileData);
+	fileData = [...fileData, book];
+	fs.writeFileSync(file, JSON.stringify(fileData));
+	mainWindow.webContents.send('books:get', JSON.stringify(fileData));
 })
+
 
 ipcMain.on('books:load', () => {
 	const fileDir = app.getPath('home');
@@ -87,8 +92,6 @@ ipcMain.on('books:load', () => {
 	const fileData = fs.readFileSync(file, 'utf8')
 	mainWindow.webContents.send('books:get', fileData);
 })
-
-
 
 app.on('activate', () => {
 	if (mainWindow === null) {
