@@ -7,6 +7,7 @@ import { ipcRenderer } from 'electron';
 import BookItem from './BookItem';
 import NavBar from './NavBar';
 import About from './About';
+import Info from './Info';
 
 const App = () => {
 
@@ -52,7 +53,9 @@ const App = () => {
 						</Table>
 					</Container>
 				</Route>
+				<Route exact path="/info" render={(props) => <Info {...props} allBooks={books} />}/>
 				<Route exact path="/about" component={About} />
+			
 			</Switch>
 		</HashRouter>
 	)
