@@ -12,21 +12,34 @@ import Info from './Info';
 const App = () => {
 
 
-	//Last book added doesn't get saved. Solve
+	//NEXT THING TO DO. DELETE BOOK
 	const [books, setBooks] = useState([]);
+
 
 	const addBook = (book) => {
 		ipcRenderer.send('books:add', book);
 	}
 
 
-
 	useEffect(() => {
+		function sortFunction(a,b){  
+			var dateA = new Date(a.date)
+			var dateB = new Date(b.date)
+			return dateA > dateB ? 1 : -1;  
+		}; 
+		
 		ipcRenderer.send('books:load');
 		ipcRenderer.on('books:get', (e, fileBooks) => {
-			setBooks(JSON.parse(fileBooks));
+			let booksParsed = JSON.parse(fileBooks);
+			booksParsed.sort(sortFunction);
+
+			setBooks(booksParsed);
 		})
+	
+		
 	}, [])
+
+
 
 	return (
 		<HashRouter>
@@ -48,7 +61,7 @@ const App = () => {
 							<tbody>
 								{ books.map((book, index) => {
 									return <BookItem  key={index} book={book} />
-								}) }
+								})}
 							</tbody>
 						</Table>
 					</Container>
