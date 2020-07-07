@@ -30,13 +30,16 @@ const App = () => {
 		
 		ipcRenderer.send('books:load');
 		ipcRenderer.on('books:get', (e, fileBooks) => {
-			let booksParsed = JSON.parse(fileBooks);
-			booksParsed.sort(sortFunction);
+			if(fileBooks) {
+				let booksParsed = JSON.parse(fileBooks);
+				booksParsed.sort(sortFunction);
+				setBooks(booksParsed);
+			} else {
+				console.log("adios")
+			}
 
-			setBooks(booksParsed);
 		})
 	
-		
 	}, [])
 
 

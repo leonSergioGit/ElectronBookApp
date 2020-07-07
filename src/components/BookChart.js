@@ -5,8 +5,6 @@ import '../App.css';
 
 const BookChart = ({ allBooks, spanish, english, french, japanese }) => {
 
-    //NEXT CHART BY YEAR
-
     const [books, setBooks] = useState(null); 
     const [years, setYears] = useState([]);
 

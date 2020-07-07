@@ -89,8 +89,23 @@ ipcMain.on('books:add', (e, book) => {
 ipcMain.on('books:load', () => {
 	const fileDir = app.getPath('home');
 	const file = path.join(fileDir, "bookApp.json")
-	const fileData = fs.readFileSync(file, 'utf8')
-	mainWindow.webContents.send('books:get', fileData);
+	if(fs.existsSync(file)) {
+		const fileData = fs.readFileSync(file, 'utf8')
+		mainWindow.webContents.send('books:get', fileData);
+	} else {
+		fs.writeFileSync(file, "[]")
+	}
+})
+
+//delete book
+ipcMain.on('books:delete', (e, bookId) => {
+	const fileDir = app.getPath('home');
+	const file = path.join(fileDir, "bookApp.json")
+	let fileData = fs.readFileSync(file, 'utf8')
+	fileData = JSON.parse(fileData);
+	fileData = fileData.filter(e => e.id != bookId)
+	fs.writeFileSync(file, JSON.stringify(fileData));
+	mainWindow.webContents.send('books:get', JSON.stringify(fileData));
 })
 
 app.on('activate', () => {

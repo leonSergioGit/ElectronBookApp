@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -16,6 +17,7 @@ const AddBook = ({ addBook }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         const book = {
+            id: uuidv4(),
             name: bookName,
             author: bookAuthor,
             language: bookLanguage,
