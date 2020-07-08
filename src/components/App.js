@@ -9,6 +9,7 @@ import NavBar from './NavBar';
 import About from './About';
 import Info from './Info';
 
+
 const App = () => {
 
 
@@ -16,9 +17,12 @@ const App = () => {
 	const [books, setBooks] = useState([]);
 
 
+
 	const addBook = (book) => {
 		ipcRenderer.send('books:add', book);
 	}
+
+
 
 
 	useEffect(() => {

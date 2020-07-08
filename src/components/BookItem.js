@@ -2,15 +2,17 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import { ipcRenderer } from 'electron';
+import EditModal from './EditModal';
 import '../App.css';
 
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, openModal }) => {
 
     
     const sendId = () => {
         ipcRenderer.send('books:delete', book.id);
     }
+
 
 
     return (
@@ -24,9 +26,7 @@ const BookItem = ({ book }) => {
                     X
                 </Button>
 
-                <Button variant='primary' size="sm" >
-                    Edit
-                </Button>
+                <EditModal bookItem={book} />
             </td>
         </tr>
     )

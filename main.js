@@ -97,6 +97,18 @@ ipcMain.on('books:load', () => {
 	}
 })
 
+//Edit bookApp
+ipcMain.on('books:edit', (e, book) => {
+	const fileDir = app.getPath('home');
+	const file = path.join(fileDir, "bookApp.json")
+	let fileData = fs.readFileSync(file, 'utf8')
+	fileData = JSON.parse(fileData);
+	fileData = fileData.filter(e => e.id != book.id);
+	fileData = [...fileData, book];
+	fs.writeFileSync(file, JSON.stringify(fileData));
+	mainWindow.webContents.send('books:get', JSON.stringify(fileData));
+})
+
 //delete book
 ipcMain.on('books:delete', (e, bookId) => {
 	const fileDir = app.getPath('home');
