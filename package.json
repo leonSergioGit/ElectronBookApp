@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-chart": "0.0.1",
